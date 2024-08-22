@@ -1,4 +1,4 @@
-package com.dumpnotes.backend;
+package main.java.com.dumpnotes.backend.model;
 
 import lombok.Data;
 import javax.persistence.*;
