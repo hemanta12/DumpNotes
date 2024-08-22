@@ -1,7 +1,7 @@
 
-package main.java.com.dumpnotes.backend.repository;
+package com.dumpnotes.backend.repository;
 
-import main.java.com.dumpnotes.backend.model.User;
+import com.dumpnotes.backend.model.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;

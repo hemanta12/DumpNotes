@@ -1,8 +1,8 @@
 
-package main.java.com.dumpnotes.backend.service;
+package com.dumpnotes.backend.service;
 
-import main.java.com.dumpnotes.backend.model.User;
-import main.java.com.dumpnotes.backend.repository.UserRepository;
+import com.dumpnotes.backend.model.User;
+import com.dumpnotes.backend.repository.UserRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
