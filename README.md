@@ -86,21 +86,21 @@ npm start
 ```
 4. **Access the Application**:
 
-*The React app will be running at http://localhost:3000.*
+- *The React app will be running at http://localhost:3000.*
 
-*The Spring Boot backend will be running at http://localhost:8080.*
+- *The Spring Boot backend will be running at http://localhost:8080.*
 
 **Future Enhancements**
 
-*Tagging and Labeling: Add the ability to tag and categorize notes.*
+- *Tagging and Labeling: Add the ability to tag and categorize notes.*
 
-*Search Functionality: Implement search to quickly find specific notes.*
+- *Search Functionality: Implement search to quickly find specific notes.*
 
-*User Profile: Create a user profile page for managing account details.*
+- *User Profile: Create a user profile page for managing account details.*
 
 **Contributing**
 
-If you'd like to contribute to DumpNotes, feel free to fork the repository and submit a pull request. Any help to improve the project is welcome!
+- If you'd like to contribute to DumpNotes, feel free to fork the repository and submit a pull request. Any help to improve the project is welcome!
 
 **License**
-This project is open-source and available under the MIT License. Feel free to use it as you like!
+- This project is open-source and available under the MIT License. Feel free to use it as you like!
