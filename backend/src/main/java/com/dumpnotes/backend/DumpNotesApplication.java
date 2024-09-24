@@ -20,22 +20,7 @@ public class DumpNotesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Create some users for practice (plain text passwords)
-		User user1 = new User();
-		user1.setUsername("Blake");
-		user1.setPassword("Blake");  // Plain text password
-		user1.setRoles("ROLE_USER");
 
-
-		User admin = new User();
-		admin.setUsername("newadmin");
-		admin.setPassword("newadmin");  // Plain text password
-		admin.setRoles("ROLE_ADMIN");
-
-		// Save users to the database
-		userRepository.save(user1);
-		userRepository.save(admin);
-
-		System.out.println("Users have been inserted into the database.");
+		System.out.println("SpringBoot Application Running");
 	}
 }
