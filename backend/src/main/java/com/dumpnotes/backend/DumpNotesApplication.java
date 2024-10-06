@@ -1,6 +1,5 @@
 package com.dumpnotes.backend;
 
-import com.dumpnotes.backend.model.User;
 import com.dumpnotes.backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

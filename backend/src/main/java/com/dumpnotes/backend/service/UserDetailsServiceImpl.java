@@ -14,21 +14,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+        @Autowired
+        private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                User user = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Split roles by comma to convert the roles string into an array of strings
-        String[] roles = user.getRoles().split(",");
+                // Remove "ROLE_" prefix if present to avoid duplication
+                String[] roles = (user.getRoles() != null && !user.getRoles().isEmpty())
+                                ? user.getRoles().replace("ROLE_", "").split(",")
+                                : new String[] { "USER" }; // Default role without prefix
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .roles(roles)
-                .build();
-    }
+                return org.springframework.security.core.userdetails.User.builder()
+                                .username(user.getUsername())
+                                .password(user.getPassword())
+                                .roles(roles)
+                                .build();
+        }
 }

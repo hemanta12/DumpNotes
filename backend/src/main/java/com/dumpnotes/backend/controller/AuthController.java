@@ -5,11 +5,16 @@ import com.dumpnotes.backend.model.User;
 import com.dumpnotes.backend.payload.LoginRequest;
 import com.dumpnotes.backend.service.AuthService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -29,7 +34,17 @@ public class AuthController {
         if (result.equals("User authenticated successfully")) {
             return ResponseEntity.ok(result);
         } else {
-            return ResponseEntity.status(401).body(result); // Return the appropriate failure message from the service
+            return ResponseEntity.status(401).body(result);
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate the session to log the user out
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("User logged out successfully");
     }
 }
