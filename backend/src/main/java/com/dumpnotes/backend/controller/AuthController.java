@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -32,7 +34,7 @@ public class AuthController {
         String result = authService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
 
         if (result.equals("User authenticated successfully")) {
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(Map.of("username", loginRequest.getUsername(), "message", result));
         } else {
             return ResponseEntity.status(401).body(result);
         }

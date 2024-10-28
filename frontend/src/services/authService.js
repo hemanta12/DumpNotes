@@ -6,6 +6,10 @@ const login = async (credentials) => {
     const response = await axios.post(`${API_URL}/login`, credentials, {
         withCredentials: true,
     });
+    // Assuming the response contains the username
+    if (response.data && response.data.username) {
+        localStorage.setItem("username", response.data.username);
+    }
     return response.data;
 };
 
@@ -20,6 +24,8 @@ const logout = async() =>{
     await axios.post(`${API_URL}/logout`, {} , {
         withCredentials: true,
     });
+    // Clear the username from local storage on logout
+    localStorage.removeItem("username");
 };
 
 const authService =  {
