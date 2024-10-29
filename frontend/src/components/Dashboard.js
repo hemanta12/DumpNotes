@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import dashboardService from '../services/dashboardService';
 import authService from '../services/authService';
+import '../css/Dashboard.css'
 
 const Dashboard = () => {
 
@@ -58,39 +59,39 @@ const Dashboard = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className='dashboard' style={styles.dashboardContainer}>
+    <div className='dashboard'>
        {/* Greeting and Logout */}
-       <div style={styles.header}>
+       <div className='dashboard-header'>
         <h2>Hi, {username}</h2>
-        <button onClick={handleLogout} style={styles.logoutButton}>Logout</button>
+        <button onClick={handleLogout} className='dashboard-logout-button'>Logout</button>
       </div>
 
     
      {/* Form to create a new note */}
-     <form onSubmit={handleCreateNote} style={styles.formContainer}>
+     <form onSubmit={handleCreateNote} className='dashboard-form-container'>
                 <input
                     type="text"
                     placeholder="Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    style={styles.input}
+                    className='dashboard-input'
                 />
                 <textarea
                     placeholder="Content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required
-                    style={styles.textarea}
+                    className='dashboard-textarea'
                 />
                 <input
                     type="text"
                     placeholder="Labels (comma separated)"
                     value={labels}
                     onChange={(e) => setLabels(e.target.value)}
-                    style={styles.input}
+                    className='dashboard-input'
                 />
-                <button type="submit" style={styles.button}>Add Note</button>
+                <button type="submit" className='dashboard-button'>Add Note</button>
             </form>
 
             <h2>Your Notes</h2>
@@ -98,17 +99,17 @@ const Dashboard = () => {
             {notes.length === 0 ? (
                 <p>No notes found</p>
             ) : (
-                   <div style={styles.notesContainer}>
+                   <div className='dashboard-notes-container'>
                     {notes.map((note) => (
-                        <div key={note.id} style={styles.noteCard}>
-                            <h3 style={styles.noteTitle}>{note.title}</h3>
-                            <p style={styles.noteContent}>{note.content}</p>
-                            <small style={styles.noteLabels}>
+                        <div key={note.id} className='dashboard-note-card'>
+                            <h3 className='dashboard-note-title'>{note.title}</h3>
+                            <p className='dashboard-note-content'>{note.content}</p>
+                            <small className='dashboard-note-labels'>
                               Labels: {note.labels.join(', ')}
                             </small>
                             <br />
 
-                            <small style={styles.noteDate}>
+                            <small className='dashboard-note-date'>
                             Created at: {new Date(note.createdAt).toLocaleString()}
                             </small>
                         </div>
@@ -118,92 +119,6 @@ const Dashboard = () => {
      
      </div>
   );
-};
-
-// Inline styles
-const styles = {
-  dashboardContainer: {
-    maxWidth: '600px',
-    margin: '0 auto',
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '20px',
-  },
-  logoutButton: {
-    padding: '8px 12px',
-    fontSize: '14px',
-    borderRadius: '4px',
-    border: 'none',
-    backgroundColor: '#d9534f',
-    color: 'white',
-    cursor: 'pointer',
-  },
-  formContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    backgroundColor: '#f9f9f9',
-    padding: '15px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  },
-  input: {
-    padding: '10px',
-    fontSize: '16px',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-  },
-  textarea: {
-    padding: '10px',
-    fontSize: '16px',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    minHeight: '60px',
-    resize: 'vertical',
-  },
-  button: {
-    padding: '10px',
-    fontSize: '16px',
-    borderRadius: '4px',
-    border: 'none',
-    backgroundColor: '#1976d2',
-    color: 'white',
-    cursor: 'pointer',
-  },
-  notesContainer: {
-    display: 'grid',
-    gap: '15px',
-    marginTop: '20px',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-  },
-  noteCard: {
-    backgroundColor: '#fff',
-    padding: '15px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  },
-  noteTitle: {
-    fontSize: '18px',
-    margin: '0 0 10px',
-  },
-  noteContent: {
-    fontSize: '14px',
-    margin: '0 0 10px',
-    color: '#555',
-  },
-  noteLabels: {
-    fontSize: '12px',
-    color: '#888',
-  },
-  noteDate: {
-    fontSize: '12px',
-    color: '#aaa',
-  },
 };
 
 export default Dashboard

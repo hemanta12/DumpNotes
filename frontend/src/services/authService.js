@@ -9,6 +9,7 @@ const login = async (credentials) => {
     // Assuming the response contains the username
     if (response.data && response.data.username) {
         localStorage.setItem("username", response.data.username);
+        localStorage.setItem('isAuthenticated', 'true');
     }
     return response.data;
 };
@@ -26,10 +27,15 @@ const logout = async() =>{
     });
     // Clear the username from local storage on logout
     localStorage.removeItem("username");
+    localStorage.removeItem('isAuthenticated');
 };
+const isAuthenticated = () => {
+    return localStorage.getItem('isAuthenticated') === 'true';
+  };
 
 const authService =  {
-  login, register, logout,
+  login, register, logout,isAuthenticated
 };
+
 
 export default authService;

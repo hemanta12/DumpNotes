@@ -1,32 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import authService from '../services/authService';
+import '../css/Header.css';
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-    const userLoggedIn = document.cookie.includes('JSESSIONID');
+    useEffect( ()=>{
+        const isLoggedIn = document.cookie.includes('JSESSIONID');
+        setUserLoggedIn(isLoggedIn);
+    }, []);
+
+
 
     const handleLogout= async() =>{
         await authService.logout();
+        setUserLoggedIn(false);
         navigate('/login');
     };
 
   return (
-    <header>
-        <nav>
-            <ul>
+    <header className="header">
+        <nav className="nav">
+            <ul className="nav-ul">
                 {!userLoggedIn ? (
                     <>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Register</Link></li>
+                    <li className="nav-li">
+                        <Link to="/login" className="nav-link">Login</Link>
+                        </li>
+                    <li className="nav-li">
+                        <Link to="/register" className="nav-link">Register</Link>
+                        </li>
 
                     </>
                 ):(
                     <>
-                     <li><Link to="/dashboard">DashBoard</Link></li>
-                     <li><button onClick={handleLogout}>Logout </button></li>
+                     <li className="nav-li">
+                        <Link to="/dashboard" className="nav-link">DashBoard</Link>
+                        </li>
+                     <li className="nav-li">
+                        <button onClick={handleLogout} className="logout-button">Logout </button>
+                        </li>
                     </>
                 )}
             </ul>
