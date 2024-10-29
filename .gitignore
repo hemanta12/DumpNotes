@@ -32,3 +32,15 @@ build/
 
 ### VS Code ###
 .vscode/
+# macOS system files
+.DS_Store
+
+#IDEA metadata
+.metadata/
+
+# Node.js dependencies
+node_modules/
+
+
+
+

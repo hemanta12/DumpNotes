@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dumpnotes</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>dumpnotes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backend service</name>
     <description>Notes dumping webapp</description>
@@ -50,16 +50,9 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-<!--            <version>8.0.33</version>-->
             <scope>runtime</scope>
         </dependency>
 
@@ -78,6 +71,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+       <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.3.232</version>
+        </dependency>
+
 
 
         <!-- JUnit 5 Dependency -->
@@ -87,9 +86,6 @@
             <version>5.9.3</version> <!-- Make sure to use the latest stable version -->
             <scope>test</scope>
         </dependency>
-
-
-
 
     </dependencies>
 
