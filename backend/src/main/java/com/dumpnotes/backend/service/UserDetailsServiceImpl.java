@@ -22,15 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 User user = userRepository.findByUsername(username)
                                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-                // Remove "ROLE_" prefix if present to avoid duplication
-                String[] roles = (user.getRoles() != null && !user.getRoles().isEmpty())
-                                ? user.getRoles().replace("ROLE_", "").split(",")
-                                : new String[] { "USER" }; // Default role without prefix
-
                 return org.springframework.security.core.userdetails.User.builder()
                                 .username(user.getUsername())
                                 .password(user.getPassword())
-                                .roles(roles)
+                                .roles("USER")
                                 .build();
         }
 }
