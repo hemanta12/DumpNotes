@@ -10,8 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -45,17 +50,24 @@ public class AuthService {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
+                // Set user roles in the authentication
+                User user = optionalUser.get();
+                List<GrantedAuthority> authorities = Arrays.stream(user.getRoles().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+
+                authentication = new UsernamePasswordAuthenticationToken(
+                        username, null, authorities);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                // Return a success message if authentication is successful
                 // Return a success message if authentication is successful
                 return "User authenticated successfully";
             } catch (Exception e) {
-                // Log the error and return failure message
-                System.out.println("Authentication failed: " + e.getMessage());
                 return "Invalid credentials";
             }
-        } else {
-            // Return a message if the user does not exist
-            return "User not found";
         }
+        return "User not found";
     }
 
 }

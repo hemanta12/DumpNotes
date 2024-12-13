@@ -53,6 +53,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate the session to log the user out
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
