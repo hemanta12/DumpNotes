@@ -31,18 +31,26 @@ const register = async (userData) => {
 };
 
 const logout = async () => {
-    await axios.post(`${API_URL}/logout`, {}, {
-        withCredentials: true,
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-    localStorage.removeItem("username");
-    localStorage.removeItem('isAuthenticated');
+    try {
+        await axios.post(`${API_URL}/logout`, {}, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+    } catch (error) {
+        console.error('Logout error:', error);
+    } finally {
+        localStorage.removeItem("username");
+        localStorage.removeItem('isAuthenticated');
+    }
 };
 
 const isAuthenticated = () => {
-    return localStorage.getItem('isAuthenticated') === 'true';
+    const hasLocalAuth = localStorage.getItem('isAuthenticated') === 'true';
+    const hasUsername = !!localStorage.getItem('username');
+    return hasLocalAuth && hasUsername;
 };
 
 const authService = {
