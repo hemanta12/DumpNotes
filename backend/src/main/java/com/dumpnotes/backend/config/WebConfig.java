@@ -12,7 +12,7 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/api/**")
                         .allowedOrigins(
                                 "https://dumpnotess.netlify.app",
                                 "http://localhost:3000" // Keep for local development

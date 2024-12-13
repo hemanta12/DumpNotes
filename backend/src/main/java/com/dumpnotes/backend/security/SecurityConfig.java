@@ -47,6 +47,7 @@ public class SecurityConfig {
         config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("*"); // Allow all methods (GET, POST, PUT, DELETE)
         config.setAllowCredentials(true); // Allow credentials like cookies
+        config.setMaxAge(3600L); // Add preflight cache time
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
@@ -59,6 +60,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

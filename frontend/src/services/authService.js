@@ -8,6 +8,7 @@ const login = async (credentials) => {
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     });
     if (response.data && response.data.username) {
@@ -23,6 +24,7 @@ const register = async (userData) => {
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     });
     return response.data;
