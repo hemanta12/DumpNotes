@@ -23,6 +23,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Hello, DumpNotes!";
+    }
+
+    @GetMapping("/error")
+    public String handleError() {
+        return "Custom Error: Something went wrong!";
+    }
+
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         return ResponseEntity.ok(authService.registerUser(user));

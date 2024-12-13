@@ -1,9 +1,7 @@
 package com.dumpnotes.backend.controller;
 
 import com.dumpnotes.backend.model.Note;
-import com.dumpnotes.backend.repository.NoteRepository;
 import com.dumpnotes.backend.service.NoteService;
-// import com.dumpnotes.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,11 +16,6 @@ import java.util.List;
 @RequestMapping("/api/notes")
 public class NoteController {
 
-    @Autowired
-    private NoteRepository noteRepository;
-
-    // @Autowired
-    // private UserService userService;
     @Autowired
     private NoteService noteService;
 
