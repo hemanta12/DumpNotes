@@ -63,15 +63,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/api/auth/register").permitAll()
-                .antMatchers("/api/auth/login").permitAll()
-                .antMatchers("/api/auth/check-auth").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/notes/**").hasAnyRole("USER")
+                .antMatchers("/api/notes/**").authenticated()
                 .anyRequest().authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .headers().frameOptions().disable();
         return http.build();
