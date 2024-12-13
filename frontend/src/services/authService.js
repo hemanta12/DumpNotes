@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const login = async (credentials) => {
+    console.log('Attempting login to:', `${API_URL}/login`);
     const response = await axios.post(`${API_URL}/login`, credentials, {
         withCredentials: true,
         headers: {
@@ -17,6 +18,7 @@ const login = async (credentials) => {
 };
 
 const register = async (userData) => {
+    console.log('Attempting registration to:', `${API_URL}/register`);
     const response = await axios.post(`${API_URL}/register`, userData, {
         withCredentials: true,
         headers: {
