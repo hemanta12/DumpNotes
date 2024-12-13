@@ -2,13 +2,14 @@
 
 import axios from 'axios';
 
-const API_URL = `${process.env.REACT_APP_API_URL}/notes`;
+const API_URL = `${process.env.REACT_APP_API_URL.replace('/auth', '')}/notes`;
 
 const getNotes = async () => {
     const response = await axios.get(API_URL, {
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     });
     return response.data;
@@ -19,6 +20,7 @@ const createNote = async (noteData) => {
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     });
     return response.data;

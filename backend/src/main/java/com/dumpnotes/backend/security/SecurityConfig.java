@@ -63,6 +63,7 @@ public class SecurityConfig {
                 .antMatchers("/api/auth/register").permitAll()
                 .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/notes/**").authenticated() // Explicitly configure notes endpoint
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable();
