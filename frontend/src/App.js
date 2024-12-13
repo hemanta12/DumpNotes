@@ -9,12 +9,19 @@ import authService from './services/authService';
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check authentication status when component mounts
-    const checkAuth = () => {
-      const isAuth = authService.isAuthenticated();
-      setUserLoggedIn(isAuth);
+    const checkAuth = async () => {
+      try {
+        const isAuth = await authService.isAuthenticated();
+        setUserLoggedIn(isAuth);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setUserLoggedIn(false);
+      } finally {
+        setLoading(false);
+      }
     };
     checkAuth();
   }, []);
@@ -23,10 +30,14 @@ function App() {
     setUserLoggedIn(true);
   };
 
-  const handleLogout = () => {
-    authService.logout();
+  const handleLogout = async () => {
+    await authService.logout();
     setUserLoggedIn(false);
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Or your loading component
+  }
 
   return (
     <Router>

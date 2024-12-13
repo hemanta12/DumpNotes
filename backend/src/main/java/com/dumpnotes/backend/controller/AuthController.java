@@ -1,10 +1,10 @@
-
 package com.dumpnotes.backend.controller;
 
 import com.dumpnotes.backend.model.User;
 import com.dumpnotes.backend.payload.LoginRequest;
 import com.dumpnotes.backend.service.AuthService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,10 +40,11 @@ public class AuthController {
 
     // Login endpoint
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest, HttpSession session) {
         String result = authService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
 
         if (result.equals("User authenticated successfully")) {
+            session.setAttribute("username", loginRequest.getUsername());
             return ResponseEntity.ok(Map.of("username", loginRequest.getUsername(), "message", result));
         } else {
             return ResponseEntity.status(401).body(result);
@@ -52,11 +53,31 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpServletResponse response) {
-        // Invalidate the session to log the user out
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
+
+        // Clear any authentication cookies
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setValue("");
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+
         return ResponseEntity.ok("User logged out successfully");
+    }
+
+    @GetMapping("/check-auth")
+    public ResponseEntity<?> checkAuth(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username != null) {
+            return ResponseEntity.ok(Map.of("authenticated", true, "username", username));
+        }
+        return ResponseEntity.ok(Map.of("authenticated", false));
     }
 }
