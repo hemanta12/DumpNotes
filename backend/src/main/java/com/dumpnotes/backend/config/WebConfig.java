@@ -15,7 +15,7 @@ public class WebConfig {
                 registry.addMapping("/api/**")
                         .allowedOrigins(
                                 "https://dumpnotess.netlify.app",
-                                "http://localhost:3000" // Keep for local development
+                                "http://localhost:3000" // for local development
                 )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
