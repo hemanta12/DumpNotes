@@ -13,4 +13,5 @@ COPY --from=build /app/target/dumpnotes-0.0.1-SNAPSHOT.jar app.jar
 
 ENV PORT=8080
 EXPOSE $PORT
-CMD ["java", "-jar", "app.jar"]
+# CMD ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "while ! nc -z db.bwwhhztkpzpqztamrygt.supabase.co 5432; do echo waiting for database; sleep 2; done; java -jar app.jar"]
